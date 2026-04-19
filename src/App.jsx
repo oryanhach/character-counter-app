@@ -12,6 +12,9 @@ export default function App() {
 	const characterCount = excludeSpaces
 		? text.replace(/\s/g, '').length
 		: text.length
+	const maxCharacters = 200
+	const remainingCharacters = maxCharacters - characterCount
+	const overLimit = Math.abs(remainingCharacters)
 	const stats = [
 		{ label: 'Characters', value: characterCount },
 		{ label: 'Words', value: wordCount },
@@ -41,6 +44,12 @@ export default function App() {
 				<label htmlFor="exclude-spaces">Exclude spaces</label>
 			</div>
 
+			<p>Remaining: {remainingCharacters}</p>
+			{remainingCharacters < 0 && (
+				<p>{overLimit} characters over limit!</p>
+			)}
+
+			{/* STATS */}
 			<div className="character-counter__stats">
 				{stats.map((stat) => (
 					<Stat
